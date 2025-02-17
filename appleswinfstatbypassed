@@ -1,0 +1,18 @@
+local old
+old = hookfunction(os.date,function(a)
+    print("BYPASSING OSDATE",a)
+    if a == "%m" then
+        return "10"
+    elseif a == "%Y" then
+        return "2024"
+    end
+    return old(a)
+end)
+local old2
+old2 = hookfunction(loadstring,function(code)
+    if code:find("return \"") ~= nil then
+        print("BYPASSED VERSION CHECK")
+        return old2('return "V1.4E";')
+    end
+    return old2(code)
+end)
